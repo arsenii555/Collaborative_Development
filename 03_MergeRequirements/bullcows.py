@@ -20,7 +20,7 @@ def bullscows(guess: str, riddle: str) -> (int, int):
 def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     riddle = random.choice(words)
     count = 1
-    while (guess := ask("Введите слово: ", None)) != riddle:
+    while (guess := ask("Введите слово: ")) != riddle:
         bulls, cows = bullscows(guess, riddle)
         inform("Быки: {}, Коровы: {}", bulls, cows)
         count += 1
@@ -54,7 +54,7 @@ def ask(prompt: str, valid: list[str] = None) -> str:
 
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    cowsay.cowsay(format_string.format(bulls, cows))
+    print(cowsay.cowsay(format_string.format(bulls, cows)))
 
 
 def load_words(source: str, length: int) -> list[str]:
