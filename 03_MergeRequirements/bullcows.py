@@ -2,7 +2,7 @@ import random
 import sys
 import certifi
 import requests
-
+import cowsay
 
 def bullscows(guess: str, riddle: str) -> (int, int):
     bulls = 0
@@ -27,16 +27,34 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     print(f"Правильно! Вы использовали {count} attempts.")
 
 
+def custom_cowsay(message):
+    bubble = f"""
+  {'_' * (len(message) + 2)}
+< {message} >
+  {'-' * (len(message) + 2)}"""
+
+    cow = r"""
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+    """
+    return bubble + "\n" + cow
+
+
 def ask(prompt: str, valid: list[str] = None) -> str:
-    word = input(prompt)
+    print(custom_cowsay(prompt))
+    word = input()
     if valid is not None:
         while word not in valid:
-            word = input(prompt)
+            print(custom_cowsay(prompt))
+            word = input()
     return word
 
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(format_string.format(bulls, cows))
+    cowsay.cowsay(format_string.format(bulls, cows))
 
 
 def load_words(source: str, length: int) -> list[str]:
